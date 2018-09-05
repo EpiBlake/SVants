@@ -55,6 +55,7 @@ We recommend you edit the template config file to include the locations of the s
 **The TEMPLATE.config file contains:**
 ```
 FASTAFILE=
+OUTPUTLOCATION=
 ELEMENTREFERENCELOCATION=
 GENOMEREFERENCELOCATION=
 SUBSETSEQLENGTH=
@@ -73,6 +74,8 @@ LASTALRSCRIPT_ALIGNMENTSTATS="Rscripts/Lastal_AlignmentStat.Rmd"
 ## Config file input files and parameters
 
 **FASTAFILE** denotes the fasta file containing the Oxford Nanopore or PacBio reads. If you are using PacBio reads, we recommend the CCS reads. 
+
+**OUTPUTLOCATION** denotes the folder where you want the output from each script within the tool to place the files generated. This should be an absolute path.
 
 **ELEMENTREFERENCELOCATION** is the location of your selected MGE. If you think this is a single insertion of the MGE, then you can use the sequence of the MGE in fasta format. If you think there may be tandem or inverted repeats, you can create this structure for your element and then use that sequence as a reference. An example can be found in the section below that reproduces the example used in the publication. 
 
@@ -93,6 +96,8 @@ The script locations in the final 6 lines of the config file are all found in th
 lastdb REF REF.fasta
 lastdb ELEMENT ELEMENT.fasta
 ``` 
+
+As a full example of syntax, see the section titled **Index the genome and element references** below.
 
 ## Output files
 ### Output from LastalAlignToGenome.sh
@@ -167,6 +172,7 @@ lastdb Example/ElementReference/Tn9_5xRepeat Example/ElementReference/Tn9_5xRepe
 NOTE: Make sure you update the paths of all variables in the config file to reflect where you have installed the git repository. We have placed a truncated path here, only showing the relative paths from the base directory of the git repo. 
 ```
 FASTAFILE=Example/ArtificialEcoli/Simulated/combined_simulated.fasta
+OUTPUTLOCATION=Example/Output
 ELEMENTREFERENCELOCATION=Example/Tn9_5xRepeat.fasta
 GENOMEREFERENCELOCATION=Example/ArtificialEcoli/Artificial_Genome.fasta
 SUBSETSEQLENGTH=2000
@@ -198,6 +204,7 @@ Now we check the combined_simulated_AlignmentStats.pdf and see that our error ra
 The config file should now be complete. It should look like this, but with absolute paths added to all of the paths to reflect the location of the files and scripts on your system.
 ```
 FASTAFILE=Example/ArtificialEcoli/Simulated/combined_simulated.fasta
+OUTPUTLOCATION=Example/Output
 ELEMENTREFERENCELOCATION=Example/Tn9_5xRepeat.fasta
 GENOMEREFERENCELOCATION=Example/ArtificialEcoli/Artificial_Genome.fasta
 SUBSETSEQLENGTH=2000
@@ -221,7 +228,7 @@ Shell/LastalAlignToElement.sh Test.config
 
 Using the **combined_simulated_AlignedToElement_filter_subset.csv**, we can count the number of repeats identified in our simulated reads. Remember that this file only contains reads with alignments that pass our filtering thresholds. Because we indicated we only want reads longer than 2,000 bases and alignments that cover at least 1,000 bases of the element, we only get those in this file. We ended up with 86 reads covering our element reference. If we look at the "identity_length", "reference_start", and "reference_stop" columns, we can see how many repeats we have detected.
 
-	NOTE: the first column is "name" and contains the name of the artificial reads that align to the element. In the simulated reads, these include whether the artificial reads come from the plasmid or the chromosome. This will not be the case with your data, this is just a part of the NanoSim output. 
+**NOTE: the first column is "name" and contains the name of the artificial reads that align to the element. In the simulated reads, these include whether the artificial reads come from the plasmid or the chromosome. This will not be the case with your data, this is just a part of the NanoSim output.** 
 
 It is also helpful to look at the "query_start" and "query_stop" columns to see where the alignment match within each read matches to the element. We have used this in our own research to show we cross a repeat junction four separate times, indicating at least 5 repeats of our MGE. 
 

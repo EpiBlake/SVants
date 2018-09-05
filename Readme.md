@@ -26,15 +26,18 @@ Aligning to an MGE element and then determining the location(s) of the MGE withi
 
 ## Dependencies
 The validated versions of this program are: 
-* Python 
+* [Python](https://www.python.org)
 	* version - 3.6.5
 	* packages - bx-python
-* R
+
+* [R](https://www.r-project.org)
 	* version - 3.4.2
 	* packages - rmarkdown, ggplot2, scales, Biostrings, formatR
-* Lastal
+
+* [Last](http://last.cbrc.jp)
 	* version - 926
-* Bedtools
+
+* [Bedtools](https://bedtools.readthedocs.io/en/latest/)
 	* version - v2.27.1
 
 ## Pipeline installation

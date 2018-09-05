@@ -1,4 +1,4 @@
- # SVants (pronounced sa&#183;vant)
+ # SVants (pronounced sa&#183;vants)
 
 **S**tructural **V**ariants with **O**xford **N**anopore **T**echnology
 

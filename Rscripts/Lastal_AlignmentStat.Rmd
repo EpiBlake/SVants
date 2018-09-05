@@ -1,0 +1,131 @@
+---
+title: "Lastal_AlignmentStat"
+date: "`r Sys.Date()`"
+output: pdf_document
+params:
+  RunNameVar:
+    value: x
+  GenomeNameVar:
+    value: x
+  ProbTableLoc:
+    value: x
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(tidy = TRUE)
+```
+
+```{r load_packages, include=FALSE}
+library(ggplot2)
+library(scales)
+```
+
+```{r options, include=FALSE}
+args<-commandArgs(TRUE)
+```
+
+
+```{r import_variables, include=FALSE}
+RunName <- params$RunNameVar
+GenomeName <- params$GenomeNameVar
+ProbTable <- read.csv(params$ProbTableLoc, header = TRUE, stringsAsFactors = FALSE)
+```
+
+```{r SummaryStatCalculations, echo=FALSE}
+All <- sum(ProbTable$CountOfMatchesAndMismatches) + sum(ProbTable$CountInsertions) + sum(ProbTable$CountDeletions)
+Insertions <- sum(ProbTable$CountInsertions)/All*100
+Deletions <- sum(ProbTable$CountDeletions)/All*100
+Mismatch <- sum(ProbTable$AasC, ProbTable$AasG, ProbTable$AasT, ProbTable$CasA, ProbTable$CasG, ProbTable$CasT, ProbTable$GasA, ProbTable$GasC, ProbTable$GasT, ProbTable$TasA, ProbTable$TasC, ProbTable$TasG)
+MismatchP <- Mismatch/All*100
+TotalAccuracy = 100 - (sum(ProbTable$CountInsertions)/All*100) - (sum(ProbTable$CountDeletions)/All*100) -  (Mismatch/All*100)
+```
+
+# Genome Alignment Summary
+
+This report presents genome alignment stats for for **`r RunName`**. 
+
+The reference used for the genome alignment is:
+
+**`r GenomeName`**
+
+Summary stats for this alignment are:
+
+Number of sequences aligned to reference: `r comma_format()(nrow(ProbTable))`
+
+The number of aligned bases, insertions, and deletions is: `r comma_format()(All)`
+
+  * This sums the number of matched and mismatched bases, plus detected insertions and deletions
+
+
+The number of insertions is: `r comma_format()(sum(ProbTable$CountInsertions))`
+
+  * As percent: `r comma_format()(Insertions)`
+
+The number of deletions is: `r comma_format()(sum(ProbTable$CountDeletions))`
+
+  * As percent: `r comma_format()(Deletions)`
+
+The number of mismatches is: `r comma_format()(Mismatch)`
+
+  * As percent: `r MismatchP`
+
+
+# Overall Accuracy rate
+
+The overall accuracy is: `r TotalAccuracy`%
+
+\newpage
+
+#Match/Mismatch Profile
+```{r Mismatch, echo=FALSE}
+NumExpectA <- sum(ProbTable$Correct_A, ProbTable$AasC, ProbTable$AasG, ProbTable$AasT)
+AasA <- (sum(ProbTable$Correct_A)/NumExpectA*100)
+AasC <- (sum(ProbTable$AasC)/NumExpectA*100)
+AasG <- (sum(ProbTable$AasG)/NumExpectA*100)
+AasT <- (sum(ProbTable$AasT)/NumExpectA*100)
+
+NumExpectC <- sum(ProbTable$CasA, ProbTable$Correct_C, ProbTable$CasG, ProbTable$CasT)
+CasC <- (sum(ProbTable$Correct_C)/NumExpectC*100)
+CasA <- (sum(ProbTable$CasA)/NumExpectC*100)
+CasG <- (sum(ProbTable$CasG)/NumExpectC*100)
+CasT <- (sum(ProbTable$CasT)/NumExpectC*100)
+
+NumExpectG <- sum(ProbTable$GasA, ProbTable$GasC, ProbTable$Correct_G, ProbTable$GasT)
+GasG <- (sum(ProbTable$Correct_G)/NumExpectG*100)
+GasA <- (sum(ProbTable$GasA)/NumExpectG*100)
+GasC <- (sum(ProbTable$GasC)/NumExpectG*100)
+GasT <- (sum(ProbTable$GasT)/NumExpectG*100)
+
+NumExpectT <- sum(ProbTable$TasA, ProbTable$TasC, ProbTable$TasG, ProbTable$Correct_T)
+TasT <- (sum(ProbTable$Correct_T)/NumExpectT*100)
+TasA <- (sum(ProbTable$TasA)/NumExpectT*100)
+TasC <- (sum(ProbTable$TasC)/NumExpectT*100)
+TasG <- (sum(ProbTable$TasG)/NumExpectT*100)
+```
+
+## **Table 1** - Match/Mismatch Matrix
+
+| | Ref_A | Ref_C | Ref_G | Ref_T |
+:---------------|:------------:|:--------------:|:-------------:|:------------:|
+Read_A | `r comma_format()(sum(ProbTable$Correct_A))` | `r comma_format()(sum(ProbTable$CasA))` | `r comma_format()(sum(ProbTable$GasA))` | `r comma_format()(sum(ProbTable$TasA))` |
+Read_C | `r comma_format()(sum(ProbTable$AasC))` | `r comma_format()(sum(ProbTable$Correct_C))` | `r comma_format()(sum(ProbTable$GasC))` | `r comma_format()(sum(ProbTable$TasC))` |
+Read_G | `r comma_format()(sum(ProbTable$AasG))` | `r comma_format()(sum(ProbTable$CasG))` | `r comma_format()(sum(ProbTable$Correct_G))` | `r comma_format()(sum(ProbTable$TasG))` |
+Read_T | `r comma_format()(sum(ProbTable$AasT))` | `r comma_format()(sum(ProbTable$CasT))` | `r comma_format()(sum(ProbTable$GasT))` | `r comma_format()(sum(ProbTable$Correct_T))` |
+
+
+## **Table 2** - Match/Mismatch Percent Matrix
+
+| | Ref_A | Ref_C | Ref_G | Ref_T |
+:---------------|:------------:|:--------------:|:-------------:|:------------:|
+Read_A | `r AasA` | `r CasA` | `r GasA` | `r TasA`
+Read_C | `r AasC` | `r CasC` | `r GasC` | `r TasC`
+Read_G | `r AasG` | `r CasG` | `r GasG` | `r TasG`
+Read_T | `r AasT` | `r CasT` | `r GasT` | `r TasT`
+
+
+## Transitions vs transversions
+
+Probability a mismatch is a transition: `r (sum(AasG, GasA, CasT, TasC)/4)`
+
+Probability a mismatch is a transversion: `r (sum(AasC, CasA, GasT, TasG, TasA, AasT, CasG, GasC)/8)`

@@ -40,10 +40,18 @@ The validated versions of this program are:
 * [Bedtools](https://bedtools.readthedocs.io/en/latest/)
 	* version - v2.27.1
 
+* [Pandoc](https://pandoc.org)
+	* version - 2.2.3.2
+
+* [LaTeX](https://www.latex-project.org)
+	* version - texlive-2018
+
 ## Pipeline installation
 
+This tool does not require installation or compiling. Simply clone this git repository and complete the configuration file
+
 ```
-GIT COMMAND UPDATE!!!
+git clone https://github.com/EpiBlake/SVants.git
 ```
 
 ## Configuration file

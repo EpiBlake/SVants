@@ -33,7 +33,8 @@ PROBOUTPUTFILENAME=${OUTPUTLOCATION}/$(basename "$FILENAME")_AlignedToReference_
 # a 1 - gap existance cost; s 2 - use both forward and reverse strands; f1 - use MAF format;
 # j7 - adds expected count inforamation  
 echo "Performing Lastal Alignment on: " $INCOMINGFILENAME
-lastal -T 0 -Q 0 -a 1 -s 2 -f1 -j7 $REFERENCELOCATION $INCOMINGFILENAME > $ALIGNOUTPUTFILENAME
+lastal -P $CORES -T 0 -Q 0 -a 1 -s 2 -f1 -j7 $REFERENCELOCATION $INCOMINGFILENAME > $ALIGNOUTPUTFILENAME
+
 
 #Computes the probabilities that the alignment representes the genomic source of the read. 
 #Discards alignments with mismap probability >0.01
@@ -46,5 +47,4 @@ $LASTALPROBABILITIES $PROBOUTPUTFILENAME
 
 #Calculate Alginment Stats and Details
 echo "Generating Alignment Stats and Details"
-#RScript $LASTALRSCRIPT_GENERAL $INCOMINGFILENAME | tee ${INCOMINGFILENAME%.fasta}_R_GeneralSeqStats.txt
 Rscript $RCALLLASTALRSCRIPT $LASTALRSCRIPT_ALIGNMENTSTATS $INCOMINGFILENAME $REFERENCELOCATION ${PROBOUTPUTFILENAME%.maf}.csv $OUTPUTLOCATION

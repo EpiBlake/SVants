@@ -43,7 +43,7 @@ fi
 # a 1 - gap existance cost; s 2 - use both forward and reverse strands; f1 - use MAF format;
 # j7 - adds expected count inforamation  
 echo "Performing Lastal Alignment on: " $FASTAFILE
-lastal -T 0 -Q 0 -a 1 -s 2 -f1 -j7 $ELEMENTREFERENCELOCATION $FASTAFILE > $ALIGNOUTPUTFILENAME
+lastal -P $CORES -T 0 -Q 0 -a 1 -s 2 -f1 -j7 $ELEMENTREFERENCELOCATION $FASTAFILE > $ALIGNOUTPUTFILENAME
 
 #Edit maf file to remove junk from header and put on appropriate header name
 echo "Modifying maf file and apply filtering criteria"
@@ -80,7 +80,7 @@ bedtools maskfasta -fi $FILTEREDFASTAFILE -bed $BEDFILE -fo $MASKEDFASTAFILE -so
 
 #Align the soft-masked reads to original reference
 echo "Aligning soft-masked reads to reference genome"
-lastal -T 0 -Q 0 -a 1 -s 2 -u 3 -f1 -j7 $GENOMEREFERENCELOCATION $MASKEDFASTAFILE > $FILTEREDALIGNOUTPUTFILENAME
+lastal -P $CORES -T 0 -Q 0 -a 1 -s 2 -u 3 -f1 -j7 $GENOMEREFERENCELOCATION $MASKEDFASTAFILE > $FILTEREDALIGNOUTPUTFILENAME
 
 #Edit maf file to remove junk from header and put on appropriate header name
 echo "Determining alignment coordintates"

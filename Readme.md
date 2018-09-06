@@ -32,7 +32,7 @@ The validated versions of this program are:
 
 * [R](https://www.r-project.org)
 	* version - 3.4.2
-	* packages - rmarkdown, ggplot2, scales, Biostrings, formatR
+	* packages - rmarkdown, ggplot2, scales, Biostrings
 
 * [Last](http://last.cbrc.jp)
 	* version - 926
@@ -64,6 +64,7 @@ SEQQUALITY=
 OVERLAPLEN=
 
 ###Pipeline specific locations (set this and forget it)
+CORES=
 FILTERMAFLOCATION="Python/filter_maf.py"
 SUBSETMAFLOCATION="Rscripts/Lastal_Filter_MAF_Output.R"
 LASTALPROBABILITIES="Shell/LastalProbabilities.sh"
@@ -88,6 +89,8 @@ LASTALRSCRIPT_ALIGNMENTSTATS="Rscripts/Lastal_AlignmentStat.Rmd"
 **SEQQUALITY** denotes the average accuracy rate for your specific sequencing data as compared to the reference genome. Quality can be judged by aligning the ONT reads to a reference genome. This reference genome can be a known reference, but this will likely be inaccurate if the reference is not extremely related to your sample. We often assemble our data with [canu](https://github.com/marbl/canu), polish it with [Pilon](https://github.com/broadinstitute/pilon), and then realign our data to the assembly to get our error rate. We have included a script for this purpose called "LastalAlignToGenome.sh". An example can be found in the section below that reproduces the example used in the publication. 
 
 **OVERLAPLEN** indicates the number of bases required to align to the reference genome in the final step of the pipeline. As an example, if you want to make sure 500 bases align to the reference genome to have confidence in the alignment location, you would use "500" here. 
+
+**CORES** indicates the number of threads (or cores if your processor is single thread per core) you wish to use when you run these pipelines. The more cores you specify, the faster the script will run. Note: Do not specify more cores than you have available as this will slow down the run and it may crash. 
 
 The script locations in the final 6 lines of the config file are all found in the git repo for this tool. Each one is shown with its respective folder. All you need to do for these is add the path to the git repo on your computer. As an example, if you store the git repo in `~/Documents/git/` `FILTERMAFLOCATION="Python/filter_maf.py"` would become `FILTERMAFLOCATION="~/Documents/git/Python/filter_maf.py"`
 
@@ -181,6 +184,7 @@ SEQQUALITY=
 OVERLAPLEN=500
 
 ###Pipeline specific locations (set this and forget it)
+CORES="8"
 FILTERMAFLOCATION="Python/filter_maf.py"
 SUBSETMAFLOCATION="Rscripts/Lastal_Filter_MAF_Output.R"
 LASTALPROBABILITIES="Shell/LastalProbabilities.sh"
@@ -213,6 +217,7 @@ SEQQUALITY=82
 OVERLAPLEN=500
 
 ###Pipeline specific locations (set this and forget it)
+CORES="8"
 FILTERMAFLOCATION="Python/filter_maf.py"
 SUBSETMAFLOCATION="Rscripts/Lastal_Filter_MAF_Output.R"
 LASTALPROBABILITIES="Shell/LastalProbabilities.sh"

@@ -27,7 +27,7 @@ Aligning to an MGE element and then determining the location(s) of the MGE withi
 ## Dependencies
 The validated versions of this program are: 
 * [Python](https://www.python.org)
-	* version - 3.6.5
+	* version - 2.7.15
 	* packages - bx-python
 
 * [R](https://www.r-project.org)

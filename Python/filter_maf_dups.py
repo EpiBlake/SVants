@@ -2,13 +2,8 @@
 filter_maf.py
 =============
                                                                                                                                     
-:Authors: Jethro & Blake
+:Authors: Jethro Johnson & Blake Hanson
                                                                                                                                     
-Purpose                                                                                                                             
--------                                                                                                                             
-Filter MAF files so that they work with stuff...
-
-
 Use
 ---
 cat <INPUT> | python filter_maf.py > <OUTPUT>

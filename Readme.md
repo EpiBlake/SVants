@@ -1,6 +1,6 @@
 # SVants (pronounced sa&#183;vants)
 
-##Table of Contents
+## Table of Contents
 - [Introduction](#introduction)
 - [Version](#documentation)
 - [Pipeline commands](#pipeline-commands)
@@ -33,7 +33,7 @@ Additionally, with the PacBio RSII, the upper limit of read length was around 40
 
 ## Documentation 
 
-###(Version - 0.1)
+### (Version - 0.1)
 
 ## Pipeline commands
 

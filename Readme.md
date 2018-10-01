@@ -55,7 +55,7 @@ The validated versions of this program are:
 
 * [R](https://www.r-project.org)
 	* version - 3.4.2
-	* packages - rmarkdown, ggplot2, scales, Biostrings
+	* packages - rmarkdown, ggplot2, scales, Biostrings, formatR
 
 * [Last](http://last.cbrc.jp)
 	* version - 926

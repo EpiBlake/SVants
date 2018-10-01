@@ -28,8 +28,6 @@ MAFFILTEROUTPUT=${OUTPUTLOCATION}/${FASTANAME%.fasta}_AlignedToElement_filter.cs
 BEDFILE=${MAFFILTEROUTPUT%.csv}_alignmentpositions.bed
 FILTEREDALIGNOUTPUTFILENAME=${OUTPUTLOCATION}/${FASTANAME%.fasta}_Filtered_AlignedToGenome.maf
 FINALMAPPINGLOCATION=${FILTEREDALIGNOUTPUTFILENAME%.maf}_finalmapping.csv
-FILTERMAFLOCATION="/Users/bhanson/Documents/Data/Scripts/Scripts/Pipelines/Lastal_MinION_GeneticElement/Python/filter_maf.py"
-SUBSETMAFLOCATION="/Users/bhanson/Documents/Data/Scripts/Scripts/Pipelines/Lastal_MinION_GeneticElement/Rscripts/Lastal_Filter_MAF_Output.R"
 
 ################################################################################
 
